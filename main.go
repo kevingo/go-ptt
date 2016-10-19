@@ -4,22 +4,25 @@ package main
 import (
 	"fmt"
 	// "github.com/jackdanger/collectlinks"
-	"net/http"
 	"io"
-	// "io/ioutil"
-  	"github.com/PuerkitoBio/goquery"
-	// "golang.org/x/net/html"
+	"net/http"
+	"os"
+	"flag"
+	"github.com/PuerkitoBio/goquery"
 	"strings"
 )
 
 func main() {
+	flag.Parse()
+	args := flag.Args()
 
-	boards := []string{"car", "nba"}
-
-	for _, e := range boards {
-		url := "https://www.ptt.cc/bbs/" + e + "/index.html"
-		fetcher(url)
+	if len(args) < 1 {
+		fmt.Println("Please specify board")
+		os.Exit(1)
 	}
+
+	url := "https://www.ptt.cc/bbs/" + args[0] + "/index.html"
+	fetcher(url)
 }
 
 func fetcher(url string) {
@@ -29,12 +32,11 @@ func fetcher(url string) {
 		return
 	}
 
-	defer resp.Body.Close()   
+	defer resp.Body.Close()
 
 	doc, err := goquery.NewDocumentFromReader(io.Reader(resp.Body))
 
 	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
 		fmt.Println(strings.TrimSpace(s.Text()))
 	})
-
 }
