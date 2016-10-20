@@ -3,7 +3,6 @@ package main
 
 import (
 	"fmt"
-	// "github.com/jackdanger/collectlinks"
 	"io"
 	"net/http"
 	"os"
@@ -37,6 +36,8 @@ func fetcher(url string) {
 	doc, err := goquery.NewDocumentFromReader(io.Reader(resp.Body))
 
 	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
-		fmt.Println(strings.TrimSpace(s.Text()))
+		a := s.Find("a")
+		qHref, _ := a.Attr("href")
+		fmt.Println(strings.TrimSpace(s.Text()) + "\thttps://www.ptt.cc" + qHref)
 	})
 }
