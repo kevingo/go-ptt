@@ -1,4 +1,3 @@
-// file: crawl.go
 package main
 
 import (
@@ -21,33 +20,10 @@ func main() {
 	}
 
 	board := args[0]
+	page := args[1]
 
-	queue := make(chan string)
-
-	go func() {
-		queue <- board
-	}()
-
-	for uri := range queue {
-		enqueue(uri, queue)
-	}
-
-	// url := getIndex(board)
-	// fetcher(url)
-}
-
-func enqueue(uri string, queue chan string) {
-	resp, err := http.Get(uri)
-	if err != nil {
-		return
-	}
-	defer resp.Body.Close()
-
-	links := []string{"https://www.ptt.cc/bbs/car/index3263.html", "https://www.ptt.cc/bbs/car/index3262.html"}
-
-	for _, link := range links {
-		go func() { queue <- link }()
-	}
+	url := getIndex(board, page)
+	fetcher(url)
 }
 
 func fetcher(url string) {
@@ -68,12 +44,15 @@ func fetcher(url string) {
 	})
 }
 
-func getTestIndex() string {
-	return
-}
+func getIndex(board string, page string) string {
+		
+	url := "https://www.ptt.cc/bbs/" + board + "/index.html"
 
-func getIndex(board string) string {
-	return "https://www.ptt.cc/bbs/" + board + "/index.html"
+	if page != "0" {
+		url = "https://www.ptt.cc/bbs/" + board + "/index" + page + ".html"
+	}
+
+	return url;
 }
 
 func getHome() string {
