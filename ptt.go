@@ -3,26 +3,37 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
 	"io"
 	"net/http"
-	"os"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/koding/multiconfig"
 )
 
+type DefaultConf struct {
+	Board       string
+	BaseUrl     string
+	CarBoardUrl string
+}
+
 func main() {
+	m := multiconfig.NewWithPath("config.toml")
+	defaultConf := new(DefaultConf)
+	m.MustLoad(defaultConf)
+
 	flag.Parse()
 	args := flag.Args()
+	var url string
 
-	if len(args) < 1 {
-		fmt.Println("Please specify board")
-		os.Exit(1)
+	if len(args) == 0 {
+		url = defaultConf.CarBoardUrl
+	} else {
+		board := args[0]
+		page := args[1]
+		url = defaultConf.BaseUrl + board + "/index" + page + ".html"
 	}
 
-	board := args[0]
-	page := args[1]
-
-	url := getIndex(board, page)
 	fetcher(url)
 }
 
@@ -42,19 +53,4 @@ func fetcher(url string) {
 		qHref, _ := a.Attr("href")
 		fmt.Println(strings.TrimSpace(s.Text()) + "\t" + getHome() + qHref)
 	})
-}
-
-func getIndex(board string, page string) string {
-		
-	url := "https://www.ptt.cc/bbs/" + board + "/index.html"
-
-	if page != "0" {
-		url = "https://www.ptt.cc/bbs/" + board + "/index" + page + ".html"
-	}
-
-	return url;
-}
-
-func getHome() string {
-	return "https://www.ptt.cc/"
 }

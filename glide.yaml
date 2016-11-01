@@ -1,0 +1,7 @@
+package: github.com/kevingo/go-ptt
+import:
+- package: github.com/PuerkitoBio/goquery
+  version: ~1.0.1
+- package: github.com/koding/multiconfig
+- package: github.com/BurntSushi/toml
+  version: v0.2.0

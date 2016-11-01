@@ -1,0 +1,21 @@
+hash: e44941c9931eb527b868aab6bb5effebe651dd6a6a58b75bc78bbf2cfca2cf16
+updated: 2016-10-31T00:29:48.114418625+08:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 65919c611220063037b1db8eb334acaf17a6d8ea
+- name: github.com/BurntSushi/toml
+  version: bbd5bb678321a0d6e58f1099321dfa73391c1b6f
+- name: github.com/fatih/camelcase
+  version: f6a740d52f961c60348ebb109adde9f4635d7540
+- name: github.com/fatih/structs
+  version: dc3312cb1a4513a366c4c9e622ad55c32df12ed3
+- name: github.com/koding/multiconfig
+  version: a2dc2f83a6e7a5c1c5b9a02527a4e9a0b921bea8
+- name: github.com/PuerkitoBio/goquery
+  version: 56a198aba89cdf7a612e6c762eff9d788b9f2dae
+- name: golang.org/x/net
+  version: 76c1a11e06a6d0fcd17b3830b8e1b87a2ade4a9c
+  subpackages:
+  - html
+  - html/atom
+testImports: []
