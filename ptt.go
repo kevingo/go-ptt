@@ -18,11 +18,17 @@ type DefaultConf struct {
 	CarBoardUrl string
 }
 
-func main() {
+var defaultConf = loadConfig()
 
+func loadConfig() *DefaultConf {
 	m := multiconfig.NewWithPath("config.toml")
-	defaultConf := new(DefaultConf)
-	m.MustLoad(defaultConf)
+	conf := new(DefaultConf)
+	m.MustLoad(conf)
+
+	return conf
+}
+
+func main() {
 
 	flag.Parse()
 	args := flag.Args()
@@ -51,7 +57,7 @@ func main() {
 		url = defaultConf.BaseUrl + board + "/index.html"
 		fmt.Println("Fetch " + args[2] + " Pages " + url)
 		pre, _ := strconv.Atoi(args[2])
-		fetchMultiPages(defaultConf.BaseUrl, board, pre)
+		fetchMultiPages(board, pre)
 	} else {
 		board = args[0]
 		page := args[1]
@@ -71,7 +77,6 @@ func fetchSingle(url string) {
 		a := s.Find("a")
 		qHref, _ := a.Attr("href")
 		title := strings.TrimSpace(s.Text())
-		//ch <- title + "\t" + "https://www.ptt.cc" + qHref
 		fmt.Println(title + "\t" + "https://www.ptt.cc" + qHref)
 	})
 }
@@ -81,25 +86,21 @@ func fetchPages(url string, ch chan int) {
 	defer resp.Body.Close()
 
 	doc, _ := goquery.NewDocumentFromReader(io.Reader(resp.Body))
-
 	href, _ := doc.Find("div.action-bar").Find("a.btn").Eq(3).Attr("href")
-
 	pages, _ := strconv.Atoi(strings.Trim(strings.Split(strings.Split(href, "/")[3], ".")[0], "index"))
 	ch <- pages + 1
 }
 
-func fetchMultiPages(baseUrl string, board string, pre int) {
+func fetchMultiPages(board string, pre int) {
 	fmt.Println("Do fetch multiple pages")
 	ch := make(chan int)
-	url := baseUrl + board + "/index.html"
+	url := defaultConf.BaseUrl + board + "/index.html"
 	go fetchPages(url, ch)
 	p := <-ch
 
-	// p, _ := strconv.Atoi(strings.Trim(strings.Split(pages, ".")[0], "index"))
-	fmt.Println(p)
 	var pagesURL = make([]string, pre+1)
 	for i := pre; i >= 0; i-- {
-		pagesURL[i] = baseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
+		pagesURL[i] = defaultConf.BaseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
 		fmt.Println("\n" + pagesURL[i] + "\n")
 		fetchSingle(pagesURL[i])
 	}
