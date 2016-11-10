@@ -12,10 +12,11 @@ import (
 )
 
 type DefaultConf struct {
-	Board    	string `default:"car"`
+	Board       string `default:"car"`
 	BaseUrl     string `default:"https://www.ptt.cc/bbs/"`
 	CarBoardUrl string `default:"https://www.ptt.cc/bbs/car/index.html"`
-	Page		int	   `default:1`
+	Page        int    `default:1`
+	Mode        string `default:"view"`
 }
 
 var conf = loadConfig()
@@ -30,7 +31,12 @@ func loadConfig() *DefaultConf {
 
 func main() {
 
-	fetchMultiPages(conf.Board, conf.Page)
+	switch conf.Mode {
+		case "view":
+			fetchMultiPages(conf.Board, conf.Page)
+		case "crawl":
+			fmt.Println("Will support crawl later on")
+	}
 }
 
 func fetchSingle(url string) {
