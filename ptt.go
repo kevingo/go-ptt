@@ -40,10 +40,9 @@ func fetchSingle(url string) {
 	doc, _ := goquery.NewDocumentFromReader(io.Reader(resp.Body))
 
 	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
-		a := s.Find("a")
-		qHref, _ := a.Attr("href")
+		link, _ := s.Find("a").Attr("href")
 		title := strings.TrimSpace(s.Text())
-		fmt.Println(title + "\t" + "https://www.ptt.cc" + qHref)
+		fmt.Println(title + "\t" + "https://www.ptt.cc" + link)
 	})
 }
 
