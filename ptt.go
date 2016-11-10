@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -13,15 +12,16 @@ import (
 )
 
 type DefaultConf struct {
-	Board       string
-	BaseUrl     string
-	CarBoardUrl string
+	Board    	string `default:"car"`
+	BaseUrl     string `default:"https://www.ptt.cc/bbs/"`
+	CarBoardUrl string `default:"https://www.ptt.cc/bbs/car/index.html"`
+	Page		int	   `default:1`
 }
 
-var defaultConf = loadConfig()
+var conf = loadConfig()
 
 func loadConfig() *DefaultConf {
-	m := multiconfig.NewWithPath("config.toml")
+	m := multiconfig.New()
 	conf := new(DefaultConf)
 	m.MustLoad(conf)
 
@@ -30,41 +30,7 @@ func loadConfig() *DefaultConf {
 
 func main() {
 
-	flag.Parse()
-	args := flag.Args()
-	var url string
-	var board string
-
-	if len(args) == 0 {
-		url = defaultConf.CarBoardUrl
-		fmt.Println("Fetch default car board")
-		fetchSingle(url)
-	} else if len(args) == 2 && args[1] == "allpages" {
-		board = args[0]
-		url = defaultConf.BaseUrl + board + "/index.html"
-		fmt.Println("Fetch allpages " + url)
-		pages := make(chan int)
-		go fetchPages(url, pages)
-		result := <-pages
-		fmt.Println(result)
-	} else if len(args) == 1 && args[0] != "allpages" {
-		board = args[0]
-		url = defaultConf.BaseUrl + board + "/index.html"
-		fmt.Println("Fetch Single Pages " + url)
-		fetchSingle(url)
-	} else if len(args) == 3 {
-		board = args[0]
-		url = defaultConf.BaseUrl + board + "/index.html"
-		fmt.Println("Fetch " + args[2] + " Pages " + url)
-		pre, _ := strconv.Atoi(args[2])
-		fetchMultiPages(board, pre)
-	} else {
-		board = args[0]
-		page := args[1]
-		url = defaultConf.BaseUrl + board + "/index" + page + ".html"
-		fmt.Println("Fetch single pages with page " + url)
-		fetchSingle(url)
-	}
+	fetchMultiPages(conf.Board, conf.Page)
 }
 
 func fetchSingle(url string) {
@@ -94,13 +60,13 @@ func fetchPages(url string, ch chan int) {
 func fetchMultiPages(board string, pre int) {
 	fmt.Println("Do fetch multiple pages")
 	ch := make(chan int)
-	url := defaultConf.BaseUrl + board + "/index.html"
+	url := conf.BaseUrl + board + "/index.html"
 	go fetchPages(url, ch)
 	p := <-ch
 
 	var pagesURL = make([]string, pre+1)
 	for i := pre; i >= 0; i-- {
-		pagesURL[i] = defaultConf.BaseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
+		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
 		fmt.Println("\n" + pagesURL[i] + "\n")
 		fetchSingle(pagesURL[i])
 	}
