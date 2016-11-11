@@ -29,5 +29,5 @@ _testmain.go
 
 # external packages folder
 vendor/
-
+data/
 .DS_Store
