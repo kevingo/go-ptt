@@ -43,12 +43,13 @@ func fetchSingle(url string) {
 	resp := fetch(url)
 	defer resp.Body.Close()
 
-	doc, _ := goquery.NewDocumentFromReader(io.Reader(resp.Body))
-
+	doc := getDocument(resp)
 	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Find("a").Attr("href")
 		title := strings.TrimSpace(s.Text())
-		fmt.Println(title + "\t" + "https://www.ptt.cc" + link)
+		if (len(link) != 0) {
+			fmt.Println(title + "\t" + "https://www.ptt.cc" + link)
+		}
 	})
 }
 
@@ -56,7 +57,7 @@ func fetchPages(url string, ch chan int) {
 	resp := fetch(url)
 	defer resp.Body.Close()
 
-	doc, _ := goquery.NewDocumentFromReader(io.Reader(resp.Body))
+	doc := getDocument(resp)
 	href, _ := doc.Find("div.action-bar").Find("a.btn").Eq(3).Attr("href")
 	pages, _ := strconv.Atoi(strings.Trim(strings.Split(strings.Split(href, "/")[3], ".")[0], "index"))
 	ch <- pages + 1
@@ -77,12 +78,13 @@ func fetchMultiPages(board string, pre int) {
 	}
 }
 
+func getDocument(resp *http.Response) *goquery.Document {
+	r := io.Reader(resp.Body)
+	doc, _ := goquery.NewDocumentFromReader(r)
+	return doc
+}
+
 func fetch(url string) *http.Response {
-	resp, err := http.Get(url)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
+	resp, _ := http.Get(url)
 	return resp
 }
