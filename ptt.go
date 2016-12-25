@@ -11,14 +11,6 @@ import (
 	"github.com/koding/multiconfig"
 )
 
-type DefaultConf struct {
-	Board       string `default:"car"`
-	BaseUrl     string `default:"https://www.ptt.cc/bbs/"`
-	CarBoardUrl string `default:"https://www.ptt.cc/bbs/car/index.html"`
-	Page        int    `default:1`
-	Mode        string `default:"view"`
-}
-
 var conf = loadConfig()
 
 func loadConfig() *DefaultConf {
@@ -32,10 +24,10 @@ func loadConfig() *DefaultConf {
 func main() {
 
 	switch conf.Mode {
-		case "view":
-			fetchMultiPages(conf.Board, conf.Page)
-		case "crawl":
-			fmt.Println("Will support crawl later on")
+	case "view":
+		fetchMultiPages(conf.Board, conf.Page)
+	case "crawl":
+		fmt.Println("Will support crawl later on")
 	}
 }
 
@@ -47,7 +39,7 @@ func fetchSingle(url string) {
 	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Find("a").Attr("href")
 		title := strings.TrimSpace(s.Text())
-		if (len(link) != 0) {
+		if len(link) != 0 {
 			fmt.Println(title + "\t" + "https://www.ptt.cc" + link)
 		}
 	})

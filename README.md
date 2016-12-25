@@ -7,19 +7,19 @@ Side project for crawling and parsing ptt webpages.
 - Fetch default `car` board data
 
 ```
-$ go run ptt.go
+$ go run *.go
 ```
 
 - Fetch specific board
 
 ```
-$ go run ptt.go -board {board}
+$ go run *.go -board {board}
 ```
 
 - Fetch number of pages on specific board
 
 ```
-$ go run ptt.go -board {board} -page {number}
+$ go run *.go -board {board} -page {number}
 ```
 
 ## References
