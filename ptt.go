@@ -52,7 +52,7 @@ func fetchPages(url string, ch chan int) {
 	doc := getDocument(resp)
 	href, _ := doc.Find("div.action-bar").Find("a.btn").Eq(3).Attr("href")
 	pages, _ := strconv.Atoi(strings.Trim(strings.Split(strings.Split(href, "/")[3], ".")[0], "index"))
-	ch <- pages + 1
+	ch <- pages
 }
 
 func fetchMultiPages(board string, pre int) {
@@ -63,7 +63,7 @@ func fetchMultiPages(board string, pre int) {
 	p := <-ch
 
 	var pagesURL = make([]string, pre+1)
-	for i := pre; i >= 0; i-- {
+	for i := pre; i > 0; i-- {
 		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
 		fmt.Println("\n" + pagesURL[i] + "\n")
 		fetchSingle(pagesURL[i])
