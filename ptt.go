@@ -31,18 +31,20 @@ func main() {
 	}
 }
 
-func fetchSingle(url string) {
+func fetchSingle(url string, str chan string) {
 	resp := fetch(url)
 	defer resp.Body.Close()
 
 	doc := getDocument(resp)
+	tmp := ""
 	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Find("a").Attr("href")
 		title := strings.TrimSpace(s.Text())
 		if len(link) != 0 {
-			fmt.Println(title + "\t" + "https://www.ptt.cc" + link)
+			tmp += title + "\t" + "https://www.ptt.cc" + link + "\n"
 		}
 	})
+	str <- tmp
 }
 
 func fetchPages(url string, ch chan int) {
@@ -66,7 +68,10 @@ func fetchMultiPages(board string, pre int) {
 	for i := pre; i > 0; i-- {
 		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
 		fmt.Println("\n" + pagesURL[i] + "\n")
-		fetchSingle(pagesURL[i])
+		s := make(chan string)
+		go fetchSingle(pagesURL[i], s)
+		result := <-s
+		fmt.Println(result)
 	}
 }
 
