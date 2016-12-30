@@ -2,6 +2,20 @@
 
 Side project for crawling and parsing ptt webpages.
 
+## Install
+
+- go build
+
+```
+$ go build -o ptt *.go
+```
+
+- go install
+
+```
+go install github.com/kevingo/go-ptt
+```
+
 ## Usage
 
 - Fetch default `car` board data
