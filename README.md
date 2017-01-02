@@ -35,6 +35,9 @@ $ go run *.go -board {board}
 ```
 $ go run *.go -board {board} -page {number}
 ```
+## Screenshot
+
+![image](https://raw.githubusercontent.com/kevingo/go-ptt/master/screenshot/pic.png)
 
 ## References
 - [zhihu-go 源碼解析：用 goquery 解析 HTML](http://liyangliang.me/posts/2016/03/zhihu-go-insight-parsing-html-with-goquery/)
