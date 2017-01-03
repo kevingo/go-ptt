@@ -26,8 +26,6 @@ func main() {
 	switch conf.Mode {
 	case "view":
 		fetchMultiPages(conf.Board, conf.Page)
-	case "crawl":
-		fmt.Println("Will support crawl later on")
 	}
 }
 
