@@ -63,8 +63,8 @@ func fetchMultiPages(board string, pre int) {
 	p := <-ch
 
 	var pagesURL = make([]string, pre+1)
-	for i := pre; i > 0; i-- {
-		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p-i) + ".html"
+	for i := pre; i >= 0; i-- {
+		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p+1-i) + ".html"
 		fmt.Println("\n" + pagesURL[i] + "\n")
 		s := make(chan string)
 		go fetchSingle(pagesURL[i], s)
