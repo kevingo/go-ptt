@@ -35,11 +35,16 @@ func fetchSingle(url string, str chan string) {
 
 	doc := getDocument(resp)
 	tmp := ""
-	doc.Find("div.title").Each(func(i int, s *goquery.Selection) {
+	doc.Find("div.r-ent").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Find("a").Attr("href")
-		title := strings.TrimSpace(s.Text())
+		title := s.Find("a").Text()
+		push := s.Find("span").Text()
+		if push == "" {
+			push = "X"
+		}
+
 		if len(link) != 0 {
-			tmp += title + "\t" + "https://www.ptt.cc" + link + "\n"
+			tmp += push + "\t" + title + " " + "https://www.ptt.cc" + link + "\n"
 		}
 	})
 	str <- tmp
