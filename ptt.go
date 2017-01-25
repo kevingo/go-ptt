@@ -61,7 +61,6 @@ func fetchPages(url string, ch chan int) {
 }
 
 func fetchMultiPages(board string, pre int) {
-	fmt.Println("Do fetch multiple pages")
 	ch := make(chan int)
 	url := conf.BaseUrl + board + "/index.html"
 	go fetchPages(url, ch)
@@ -70,7 +69,6 @@ func fetchMultiPages(board string, pre int) {
 	var pagesURL = make([]string, pre+1)
 	for i := pre; i >= 0; i-- {
 		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p+1-i) + ".html"
-		fmt.Println("\n" + pagesURL[i] + "\n")
 		s := make(chan string)
 		go fetchSingle(pagesURL[i], s)
 		result := <-s
