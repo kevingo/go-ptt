@@ -1,6 +1,6 @@
 # go ptt 
 
-Side project for crawling and parsing ptt webpages.
+Read ptt in your console.
 
 ## Install
 
@@ -21,24 +21,20 @@ go install github.com/kevingo/go-ptt
 - Fetch default `car` board data
 
 ```
-$ go run *.go
+$ ptt
 ```
 
 - Fetch specific board
 
 ```
-$ go run *.go -board {board}
+$ ptt -board {board}
 ```
 
 - Fetch number of pages on specific board
 
 ```
-$ go run *.go -board {board} -page {number}
+$ ptt -board {board} -page {number}
 ```
 ## Screenshot
 
-![image](https://raw.githubusercontent.com/kevingo/go-ptt/master/screenshot/pic.png)
-
-## References
-- [zhihu-go 源碼解析：用 goquery 解析 HTML](http://liyangliang.me/posts/2016/03/zhihu-go-insight-parsing-html-with-goquery/)
-- [multiconfig](https://github.com/koding/multiconfig)
+![image](https://raw.githubusercontent.com/kevingo/go-ptt/master/screenshot/ptt-screenshot.png)
