@@ -37,4 +37,4 @@ $ ptt -board {board} -page {number}
 ```
 ## Screenshot
 
-![image](https://raw.githubusercontent.com/kevingo/go-ptt/master/screenshot/ptt-screenshot.png)
+![image](https://raw.githubusercontent.com/kevingo/go-ptt/master/screenshot/ptt.png)
