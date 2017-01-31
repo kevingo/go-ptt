@@ -1,14 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"io"
-	"net/http"
-	"strconv"
-	"strings"
-
 	"github.com/PuerkitoBio/goquery"
 	"github.com/koding/multiconfig"
+	"github.com/olekukonko/tablewriter"
+	"io"
+	"net/http"
+	"os"
+	"strconv"
+	"strings"
 )
 
 var conf = loadConfig()
@@ -44,7 +44,7 @@ func fetchSingle(url string, str chan string) {
 		}
 
 		if len(link) != 0 {
-			tmp += push + "\t" + title + " " + "https://www.ptt.cc" + link + "\n"
+			tmp += push + "\t" + title + "\t" + "https://www.ptt.cc" + link + "\n"
 		}
 	})
 	str <- tmp
@@ -66,14 +66,42 @@ func fetchMultiPages(board string, pre int) {
 	go fetchPages(url, ch)
 	p := <-ch
 
+	var output string
+
 	var pagesURL = make([]string, pre+1)
 	for i := pre; i >= 0; i-- {
 		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p+1-i) + ".html"
 		s := make(chan string)
 		go fetchSingle(pagesURL[i], s)
 		result := <-s
-		fmt.Println(result)
+		output += result
 	}
+
+	printOutput(output)
+}
+
+func printOutput(output string) {
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Push", "Title", "URL"})
+	table.SetBorder(false)
+	table.SetAlignment(tablewriter.ALIGN_LEFT)
+	o := [][]string{}
+
+	rows := strings.Split(output, "\n")
+	for i := 0; i < len(rows); i++ {
+		row := strings.Split(rows[i], "\t") // row[0], row[1], row[2]
+		if len(row) == 3 {
+			arr := []string{row[0], row[1], row[2]}
+			o = append(o, arr)
+		}
+	}
+
+	for _, v := range o {
+		table.Append(v)
+	}
+
+	table.Render() // Send output
 }
 
 func getDocument(resp *http.Response) *goquery.Document {
