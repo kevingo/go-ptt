@@ -27,13 +27,13 @@ $ ptt
 - Fetch specific board
 
 ```
-$ ptt -board {board}
+$ ptt -b {board}
 ```
 
 - Fetch number of pages on specific board
 
 ```
-$ ptt -board {board} -page {number}
+$ ptt -b {board} -p {number}
 ```
 ## Screenshot
 
