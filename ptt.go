@@ -1,8 +1,8 @@
 package main
 
 import (
+	"flag"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/koding/multiconfig"
 	"github.com/olekukonko/tablewriter"
 	"io"
 	"net/http"
@@ -11,22 +11,17 @@ import (
 	"strings"
 )
 
-var conf = loadConfig()
+var (
+	Board = flag.String("b", "car", "Specific ptt board")
+	Page  = flag.Int("p", 2, "Default pages to fetched")
+)
 
-func loadConfig() *DefaultConf {
-	m := multiconfig.New()
-	conf := new(DefaultConf)
-	m.MustLoad(conf)
-
-	return conf
+func init() {
+	flag.Parse()
 }
 
 func main() {
-
-	switch conf.Mode {
-	case "view":
-		fetchMultiPages(conf.Board, conf.Page)
-	}
+	fetchMultiPages(*Board, *Page)
 }
 
 func fetchSingle(url string, str chan string) {
@@ -62,7 +57,7 @@ func fetchPages(url string, ch chan int) {
 
 func fetchMultiPages(board string, pre int) {
 	ch := make(chan int)
-	url := conf.BaseUrl + board + "/index.html"
+	url := BaseUrl + board + "/index.html"
 	go fetchPages(url, ch)
 	p := <-ch
 
@@ -70,7 +65,7 @@ func fetchMultiPages(board string, pre int) {
 
 	var pagesURL = make([]string, pre+1)
 	for i := pre; i >= 0; i-- {
-		pagesURL[i] = conf.BaseUrl + board + "/index" + strconv.Itoa(p+1-i) + ".html"
+		pagesURL[i] = BaseUrl + board + "/index" + strconv.Itoa(p+1-i) + ".html"
 		s := make(chan string)
 		go fetchSingle(pagesURL[i], s)
 		result := <-s

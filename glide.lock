@@ -1,23 +1,10 @@
-hash: 68204ce8492177fbd680d07664370166a97f1ea9f12e79d6836e82b016c709f7
-updated: 2017-01-30T23:58:18.882818334+08:00
+hash: 3b9bfc1ce15bd52cd1d235d6f13bb6c9eba0cdeb4c3582fe25b89bb40f48dd3b
+updated: 2017-02-06T23:30:18.913805184+08:00
 imports:
-- name: github.com/andybalholm/cascadia
-  version: 65919c611220063037b1db8eb334acaf17a6d8ea
 - name: github.com/BurntSushi/toml
   version: bbd5bb678321a0d6e58f1099321dfa73391c1b6f
-- name: github.com/fatih/camelcase
-  version: f6a740d52f961c60348ebb109adde9f4635d7540
-- name: github.com/fatih/structs
-  version: dc3312cb1a4513a366c4c9e622ad55c32df12ed3
-- name: github.com/koding/multiconfig
-  version: a2dc2f83a6e7a5c1c5b9a02527a4e9a0b921bea8
 - name: github.com/olekukonko/tablewriter
   version: febf2d34b54a69ce7530036c7503b1c9fbfdf0bb
 - name: github.com/PuerkitoBio/goquery
   version: 3cb3b8656883c2cc3deb9c643d93ea6e5157e425
-- name: golang.org/x/net
-  version: 76c1a11e06a6d0fcd17b3830b8e1b87a2ade4a9c
-  subpackages:
-  - html
-  - html/atom
 testImports: []
