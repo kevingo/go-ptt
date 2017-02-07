@@ -1,10 +1,17 @@
-hash: 3b9bfc1ce15bd52cd1d235d6f13bb6c9eba0cdeb4c3582fe25b89bb40f48dd3b
-updated: 2017-02-06T23:30:18.913805184+08:00
+hash: 97593c56d01266e698c8f5120d19bbf7e8cf0d72ebc31b26126db53485086729
+updated: 2017-02-07T10:49:01.810004418+08:00
 imports:
-- name: github.com/BurntSushi/toml
-  version: bbd5bb678321a0d6e58f1099321dfa73391c1b6f
+- name: github.com/andybalholm/cascadia
+  version: 65919c611220063037b1db8eb334acaf17a6d8ea
+- name: github.com/mattn/go-runewidth
+  version: 14207d285c6c197daabb5c9793d63e7af9ab2d50
 - name: github.com/olekukonko/tablewriter
   version: febf2d34b54a69ce7530036c7503b1c9fbfdf0bb
 - name: github.com/PuerkitoBio/goquery
   version: 3cb3b8656883c2cc3deb9c643d93ea6e5157e425
+- name: golang.org/x/net
+  version: 76c1a11e06a6d0fcd17b3830b8e1b87a2ade4a9c
+  subpackages:
+  - html
+  - html/atom
 testImports: []
