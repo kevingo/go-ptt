@@ -1,0 +1,46 @@
+{
+    "memo": "0cd77261ff06f573e810d28ecfacdfdc0acc8b412436447a7fd1d08a7f981844",
+    "projects": [
+        {
+            "name": "github.com/PuerkitoBio/goquery",
+            "version": "v1.1.0",
+            "revision": "e1271ee34c6a305e38566ecd27ae374944907ee9",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/andybalholm/cascadia",
+            "branch": "master",
+            "revision": "349dd0209470eabd9514242c688c403c0926d266",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-runewidth",
+            "branch": "master",
+            "revision": "737072b4e32b7a5018b4a7125da8d12de90e8045",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/olekukonko/tablewriter",
+            "branch": "master",
+            "revision": "febf2d34b54a69ce7530036c7503b1c9fbfdf0bb",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/net",
+            "branch": "master",
+            "revision": "a6577fac2d73be281a500b310739095313165611",
+            "packages": [
+                "html",
+                "html/atom"
+            ]
+        }
+    ]
+}

@@ -1,6 +1,0 @@
-package: github.com/kevingo/go-ptt
-import:
-- package: github.com/PuerkitoBio/goquery
-  version: ~1.0.1
-- package: github.com/olekukonko/tablewriter
-- package: github.com/andybalholm/cascadia
