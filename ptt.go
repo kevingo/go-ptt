@@ -16,11 +16,13 @@ var (
 	Page  = flag.Int("p", 2, "Default pages to fetched")
 )
 
-func init() {
-	flag.Parse()
-}
+var (
+	BaseUrl     = "https://www.ptt.cc/bbs/"
+	CarBoardUrl = "https://www.ptt.cc/bbs/car/index.html"
+)
 
 func main() {
+	flag.Parse()
 	fetchMultiPages(*Board, *Page)
 }
 
