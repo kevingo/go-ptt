@@ -1,5 +1,5 @@
 {
-    "memo": "0cd77261ff06f573e810d28ecfacdfdc0acc8b412436447a7fd1d08a7f981844",
+    "memo": "0e0ffd73eb294305394a08f7ad54c62677fb0d3a86d7acf7e690413641094247",
     "projects": [
         {
             "name": "github.com/PuerkitoBio/goquery",
@@ -19,8 +19,8 @@
         },
         {
             "name": "github.com/mattn/go-runewidth",
-            "branch": "master",
-            "revision": "737072b4e32b7a5018b4a7125da8d12de90e8045",
+            "version": "v0.0.2",
+            "revision": "9e777a8366cce605130a531d2cd6363d07ad7317",
             "packages": [
                 "."
             ]
