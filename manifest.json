@@ -1,7 +1,0 @@
-{
-    "dependencies": {
-        "github.com/olekukonko/tablewriter": {
-            "branch": "master"
-        }
-    }
-}
