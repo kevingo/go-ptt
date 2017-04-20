@@ -1,4 +1,4 @@
-memo = "df50b00fac99b5085292c39d8ca3607c052e72c8a9445ac68a3e38a0891863d4"
+memo = "da2454b743970c595584b7d8b1a629d7272de366942b737e21552d6ebba6ee81"
 
 [[projects]]
   name = "github.com/PuerkitoBio/goquery"
