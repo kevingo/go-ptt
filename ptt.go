@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/olekukonko/tablewriter"
 	"io"
@@ -12,8 +13,9 @@ import (
 )
 
 var (
-	Board = flag.String("b", "car", "Specific ptt board")
-	Page  = flag.Int("p", 2, "Default pages to fetched")
+	Board   = flag.String("b", "car", "Specific ptt board")
+	Page    = flag.Int("p", 2, "Default pages to fetched")
+	Feature = flag.String("f", "hot", "Special features")
 )
 
 var (
@@ -23,7 +25,25 @@ var (
 
 func main() {
 	flag.Parse()
-	fetchMultiPages(*Board, *Page)
+
+	if len(os.Args) == 1 {
+		fetchMultiPages(*Board, *Page)
+	} else {
+		fmt.Println(os.Args[2])
+		switch os.Args[1] {
+		case "-f":
+			fetchHottestPage()
+			break
+		case "-b":
+		case "-t":
+		default:
+			fetchMultiPages(*Board, *Page)
+		}
+	}
+}
+
+func fetchHottestPage() {
+	fmt.Println("Fetch hottest page")
 }
 
 func fetchSingle(url string, str chan string) {
