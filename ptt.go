@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/olekukonko/tablewriter"
 	"io"
@@ -25,18 +24,7 @@ var (
 
 func main() {
 	flag.Parse()
-
-	if len(os.Args) == 1 {
-		fetchMultiPages(*Board, *Page)
-	} else {
-		fmt.Println(os.Args[2])
-		switch os.Args[1] {
-		case "-b":
-		case "-t":
-		default:
-			fetchMultiPages(*Board, *Page)
-		}
-	}
+	fetchMultiPages(*Board, *Page)
 }
 
 func fetchSingle(url string, str chan string) {
@@ -90,7 +78,7 @@ func fetchMultiPages(board string, pre int) {
 	printOutput(output)
 }
 
-func printOutput(output string) {
+func  printOutput(output string) {
 
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Push", "Title", "URL"})
