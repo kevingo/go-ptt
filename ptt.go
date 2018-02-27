@@ -42,10 +42,6 @@ func main() {
 	}
 }
 
-func fetchHottestPage() {
-	fmt.Println("Fetch hottest page")
-}
-
 func fetchSingle(url string, str chan string) {
 	resp := fetch(url)
 	defer resp.Body.Close()
