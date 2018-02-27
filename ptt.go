@@ -31,9 +31,6 @@ func main() {
 	} else {
 		fmt.Println(os.Args[2])
 		switch os.Args[1] {
-		case "-f":
-			fetchHottestPage()
-			break
 		case "-b":
 		case "-t":
 		default:
