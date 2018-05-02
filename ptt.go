@@ -35,7 +35,7 @@ func fetchSingle(url string, str chan string) {
 	tmp := ""
 	doc.Find("div.r-ent").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Find("a").Attr("href")
-		title := s.Find("a").Text()
+		title := s.Find("div.title a").Text()
 		push := s.Find("span").Text()
 		if push == "" {
 			push = "X"
@@ -78,7 +78,7 @@ func fetchMultiPages(board string, pre int) {
 	printOutput(output)
 }
 
-func  printOutput(output string) {
+func printOutput(output string) {
 
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Push", "Title", "URL"})
