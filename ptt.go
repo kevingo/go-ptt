@@ -2,13 +2,14 @@ package main
 
 import (
 	"flag"
-	"github.com/PuerkitoBio/goquery"
-	"github.com/olekukonko/tablewriter"
 	"io"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/olekukonko/tablewriter"
 )
 
 var (
