@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	Board   = flag.String("b", "car", "Specific ptt board")
+	Board   = flag.String("b", "home-sale", "Specific ptt board")
 	Page    = flag.Int("p", 2, "Default pages to fetched")
 	Feature = flag.String("f", "hot", "Special features")
 )
