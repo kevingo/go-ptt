@@ -31,3 +31,4 @@ _testmain.go
 vendor/
 data/
 .DS_Store
+ptt
