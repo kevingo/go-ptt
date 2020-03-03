@@ -83,7 +83,6 @@ func printOutput(output string) {
 	spaceRex := regexp.MustCompile(`\s+`)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Push", "Title", "URL"})
-	table.SetBorder(false)
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 	o := [][]string{}
 
@@ -99,7 +98,6 @@ func printOutput(output string) {
 			o = append(o, arr)
 		}
 	}
-
 	table.AppendBulk(o)
 	table.Render() // Send output
 }
