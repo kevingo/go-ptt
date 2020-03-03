@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -79,7 +80,7 @@ func fetchMultiPages(board string, pre int) {
 }
 
 func printOutput(output string) {
-
+	spaceRex := regexp.MustCompile(`\s+`)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Push", "Title", "URL"})
 	table.SetBorder(false)
@@ -89,8 +90,12 @@ func printOutput(output string) {
 	rows := strings.Split(output, "\n")
 	for i := 0; i < len(rows); i++ {
 		row := strings.Split(rows[i], "\t") // row[0], row[1], row[2]
+
 		if len(row) == 3 {
-			arr := []string{row[0], row[1], row[2]}
+			push := row[0]
+			title := spaceRex.ReplaceAllString(row[1], "") // remove space to aviod wrong table format
+			url := row[2]
+			arr := []string{push, title, url}
 			o = append(o, arr)
 		}
 	}
