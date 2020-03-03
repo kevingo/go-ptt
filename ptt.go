@@ -95,10 +95,7 @@ func printOutput(output string) {
 		}
 	}
 
-	for _, v := range o {
-		table.Append(v)
-	}
-
+	table.AppendBulk(o)
 	table.Render() // Send output
 }
 
