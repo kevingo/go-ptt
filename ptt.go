@@ -20,7 +20,8 @@ var (
 )
 
 var (
-	BaseUrl = "https://www.ptt.cc/bbs/"
+	BaseUrl  = "https://www.ptt.cc/bbs/"
+	spaceRex = regexp.MustCompile(`\s+`)
 )
 
 func main() {
@@ -80,7 +81,6 @@ func fetchMultiPages(board string, pre int) {
 }
 
 func printOutput(output string) {
-	spaceRex := regexp.MustCompile(`\s+`)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Push", "Title", "URL"})
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
